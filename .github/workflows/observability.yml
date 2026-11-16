@@ -25,7 +25,7 @@ jobs:
     - name: Select the Rust toolchain
       run: |
         rustup show active-toolchain
-    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@7b791a2ca80193261b95a835fa146c7af51e1123 # v0.6.55
+    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@6cf64d17c08dfc75392c55784b872fe9a6056553 # v0.6.57
     - name: Format
       shell: bash
       run: |
