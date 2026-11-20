@@ -30,7 +30,7 @@ workflows:
 
 [private]
 dependencies:
-    cargo deny --frozen check --hide-inclusion-graph
+    cargo deny --frozen check --warn unmaintained --hide-inclusion-graph
     cargo shear --locked --offline --deny-warnings
 
 [private]

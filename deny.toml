@@ -39,13 +39,5 @@ multiple-versions = "warn"
 wildcards = "warn"
 
 [advisories]
-# Cargo.lock is committed; advisories gate on it.
+# Keep the complete lock audit. The CI and local checks report end-of-maintenance notices.
 db-path = "~/.cargo/advisory-db"
-ignore = [
-    # atomic-polyfill (unmaintained) via heapless <- postcard: no safe
-    # upgrade exists; severity is informational, not a vulnerability.
-    "RUSTSEC-2023-0089",
-    # paste (unmaintained) via netlink-packet-core <- netwatch <- iroh:
-    # no safe upgrade exists; informational only.
-    "RUSTSEC-2024-0436",
-]

@@ -59,7 +59,7 @@ iroh-relay = "=1.4.1"
 noq = "=1.4.0"
 noq-proto = "=1.4.0"
 opus = { version = "=0.4.0" }
-postcard = "1"
+postcard = { version = "1", default-features = false, features = ["use-std"] }
 proptest = "1"
 rand = "0.10"
 redb = "=4.5.0"

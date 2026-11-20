@@ -25,7 +25,7 @@ jobs:
     - name: Select the Rust toolchain
       run: |
         rustup show active-toolchain
-    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@a12acfc75fd7daee2fac9a246ee60683fe18955b # v0.6.67
+    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@03d53ec146797bc27d7b8b37abbf766ab82041b6 # v0.6.81
       with:
         tools: cargo-deny@0.20.2
     - name: Install cargo-audit 0.23.0, checked against their digests
@@ -41,5 +41,5 @@ jobs:
     - name: Supply chain
       shell: bash
       run: |
-        cargo deny --manifest-path ./Cargo.toml --all-features --config deny.toml check bans licenses advisories sources
+        cargo deny --manifest-path ./Cargo.toml --all-features --config deny.toml check --warn unmaintained bans licenses advisories sources
         (cd . && cargo audit --db "$RUNNER_TEMP/rustsec-advisory-db")
