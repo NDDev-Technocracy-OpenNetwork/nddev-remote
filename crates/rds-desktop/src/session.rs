@@ -1463,6 +1463,7 @@ pub async fn serve_desktop_with(
                     }
                     Ok(DesktopControl::RequestIdr) => match media_repair.request() {
                         crate::media_repair::Request::Accepted => {
+                            controls.idr.store(true, Ordering::Release);
                             tracing::info!(
                                 media_repair_generation = media_repair.generation(),
                                 "desktop explicit media repair accepted"
