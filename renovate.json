@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Receive vendored sources as reviewed upstream snapshots",
+      "matchFileNames": ["vendor/**"],
+      "enabled": false
+    }
+  ]
+}
