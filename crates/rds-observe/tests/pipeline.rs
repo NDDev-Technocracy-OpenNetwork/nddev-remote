@@ -266,7 +266,7 @@ async fn vector_openobserve_logs_metrics_alerts_and_restart() {
                 .find(|candidate| candidate.is_file())
                 .expect("first run cargo build -p rds-observe --example fixture")
         },
-        std::path::PathBuf::from,
+        PathBuf::from,
     );
     assert!(
         fixture.is_file(),
