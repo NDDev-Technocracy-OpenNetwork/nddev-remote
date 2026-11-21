@@ -34,10 +34,14 @@ jobs:
       shell: bash
       run: |
         cargo clippy --locked -p rds-observe --all-targets -- -D warnings
-    - name: Build
+    - name: Build the fixture and record its path
       shell: bash
       run: |
-        cargo build --locked -p rds-observe --example fixture
+        set -o pipefail
+        fixture=$(cargo build --locked -p rds-observe --example fixture --message-format=json-render-diagnostics \
+          | jq -er 'select(.reason == "compiler-artifact" and .target.kind == ["example"] and .target.name == "fixture") | .executable')
+        test -x "$fixture"
+        printf 'RDS_OBSERVE_FIXTURE=%s\n' "$fixture" >> "$GITHUB_ENV"
     - name: Test
       shell: bash
       run: |
@@ -47,4 +51,4 @@ jobs:
             if timeout 120 docker pull "$1"; then return 0; fi;
           done;
           return 1;
-        }; pull_image "$RDS_VECTOR_IMAGE"; pull_image "$RDS_OPENOBSERVE_IMAGE"; cargo build --locked -p rds-observe --example fixture; cargo test --locked -p rds-observe --test pipeline -- --ignored --nocapture'
+        }; pull_image "$RDS_VECTOR_IMAGE"; pull_image "$RDS_OPENOBSERVE_IMAGE"; cargo test --locked -p rds-observe --test pipeline -- --ignored --nocapture'
