@@ -95,20 +95,20 @@ impl Drop for BoundedFile {
     }
 }
 impl redb::StorageBackend for BoundedFile {
-    fn len(&self) -> io::Result<u64> {
+    fn len(&self) -> Result<u64, redb::BackendError> {
         Ok(self.file.metadata()?.len())
     }
-    fn read(&self, offset: u64, out: &mut [u8]) -> io::Result<()> {
+    fn read(&self, offset: u64, out: &mut [u8]) -> Result<(), redb::BackendError> {
         bounds(offset, out.len())?;
-        self.file.read_exact_at(out, offset)
+        self.file.read_exact_at(out, offset).map_err(Into::into)
     }
-    fn set_len(&self, len: u64) -> io::Result<()> {
+    fn set_len(&self, len: u64) -> Result<(), redb::BackendError> {
         if len > MAX_DATABASE {
-            return Err(io::Error::other("record database capacity exceeded"));
+            return Err(io::Error::other("record database capacity exceeded").into());
         }
-        self.file.set_len(len)
+        self.file.set_len(len).map_err(Into::into)
     }
-    fn sync_data(&self) -> io::Result<()> {
+    fn sync_data(&self) -> Result<(), redb::BackendError> {
         #[cfg(test)]
         if self
             .fault
@@ -120,11 +120,11 @@ impl redb::StorageBackend for BoundedFile {
             )
             .is_ok()
         {
-            return Err(io::Error::other("injected database sync failure"));
+            return Err(io::Error::other("injected database sync failure").into());
         }
-        self.file.sync_all()
+        self.file.sync_all().map_err(Into::into)
     }
-    fn write(&self, offset: u64, data: &[u8]) -> io::Result<()> {
+    fn write(&self, offset: u64, data: &[u8]) -> Result<(), redb::BackendError> {
         bounds(offset, data.len())?;
         #[cfg(test)]
         if self
@@ -138,9 +138,9 @@ impl redb::StorageBackend for BoundedFile {
             .is_ok()
         {
             self.file.write_all_at(&data[..data.len() / 2], offset)?;
-            return Err(io::Error::other("injected partial database write"));
+            return Err(io::Error::other("injected partial database write").into());
         }
-        self.file.write_all_at(data, offset)
+        self.file.write_all_at(data, offset).map_err(Into::into)
     }
 }
 fn bounds(offset: u64, len: usize) -> io::Result<()> {
@@ -336,7 +336,7 @@ impl FileStore {
         // compaction the file only ever grows. Maintenance, not an
         // invariant: a failed compact must not refuse a valid store, and
         // this crate carries no logging facade to report it through.
-        let _ = db.compact();
+        let _ = db.compact(redb::CompactionMode::Balanced);
         let observed = Published::new(record_snapshot(&metadata, true));
         Ok(Self {
             observed,
@@ -419,7 +419,7 @@ impl FileStore {
                         std::ops::Bound::Excluded(key.as_slice())
                     });
                 for item in table
-                    .range::<&[u8]>((start, std::ops::Bound::Unbounded))
+                    .range((start, std::ops::Bound::Unbounded))
                     .map_err(error)?
                     .take(GC_BATCH)
                 {

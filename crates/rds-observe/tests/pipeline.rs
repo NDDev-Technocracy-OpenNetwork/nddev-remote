@@ -256,13 +256,18 @@ async fn wait_records(client: &Client, stack: &Stack, base: &str, run: &str, exp
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 #[ignore = "starts isolated local Vector/OpenObserve containers; see docs/observability.md"]
 async fn vector_openobserve_logs_metrics_alerts_and_restart() {
-    let fixture = std::env::current_exe()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .join("examples/fixture");
+    let fixture = std::env::var_os("RDS_OBSERVE_FIXTURE").map_or_else(
+        || {
+            std::env::current_exe()
+                .unwrap()
+                .ancestors()
+                .skip(1)
+                .map(|directory| directory.join("examples/fixture"))
+                .find(|candidate| candidate.is_file())
+                .expect("first run cargo build -p rds-observe --example fixture")
+        },
+        PathBuf::from,
+    );
     assert!(
         fixture.is_file(),
         "first run cargo build -p rds-observe --example fixture"
