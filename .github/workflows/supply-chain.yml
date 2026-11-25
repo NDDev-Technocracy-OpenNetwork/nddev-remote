@@ -25,7 +25,7 @@ jobs:
     - name: Select the Rust toolchain
       run: |
         rustup show active-toolchain
-    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@65901e0f87cb8bc931c2f92ff60c319859aec60b # v0.6.164
+    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@969b1ca89612dfb457792228c0120204c5498a41 # v0.6.165
       with:
         tools: cargo-deny@0.21.0
     - name: Install cargo-audit 0.23.0, checked against their digests
