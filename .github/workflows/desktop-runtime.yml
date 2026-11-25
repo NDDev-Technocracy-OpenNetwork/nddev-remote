@@ -46,7 +46,7 @@ jobs:
           persist-credentials: false
       - name: Select the repository toolchain
         run: rustup show active-toolchain
-      - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@b2cb3d17849fe01da3af238332d5c698004d4613 # v0.6.163
+      - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@65901e0f87cb8bc931c2f92ff60c319859aec60b # v0.6.164
       - name: Install the Linux portal ABI
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libpipewire-0.3-dev libspa-0.2-dev libclang-dev xvfb
