@@ -31,7 +31,7 @@ jobs:
     - name: Select the Rust toolchain
       run: |
         rustup show active-toolchain
-    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@da7d6fd99e4fe8ed90e59a970043bde90486190d # v0.6.103
+    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@6dafb764a6cb35d60a1d8cd6e21877cb94608726 # v0.6.160
     - name: Format
       shell: bash
       run: |
@@ -56,7 +56,7 @@ jobs:
     - name: Select the Rust toolchain
       run: |
         rustup show active-toolchain
-    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@da7d6fd99e4fe8ed90e59a970043bde90486190d # v0.6.103
+    - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-cache@6dafb764a6cb35d60a1d8cd6e21877cb94608726 # v0.6.160
     - name: Test
       shell: bash
       run: |
@@ -115,7 +115,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@da7d6fd99e4fe8ed90e59a970043bde90486190d # v0.6.103
+      - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@6dafb764a6cb35d60a1d8cd6e21877cb94608726 # v0.6.160
         with:
           tools: zizmor@1.32.0
       - name: Install actionlint 1.7.12 and gitleaks 8.30.1, checked against their digests
