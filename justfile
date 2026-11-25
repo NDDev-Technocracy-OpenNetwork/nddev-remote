@@ -1,5 +1,6 @@
 # Build-free source checks; native compilation and tests run on build devices.
 set positional-arguments
+export CARGO_BUILD_WARNINGS := env_var_or_default("CARGO_BUILD_WARNINGS", "deny")
 
 # Lists the available project commands.
 default:
@@ -39,7 +40,7 @@ whitespace:
 
 # Run only on a build device or runner. Native feature sets are explicit.
 test features="":
-    cargo clippy --locked --workspace --all-targets --features "$1" -- -D warnings
+    cargo clippy --locked --workspace --all-targets --features "$1"
     cargo nextest run --locked --workspace --all-targets --features "$1"
     cargo test --locked --workspace --doc --features "$1"
 
