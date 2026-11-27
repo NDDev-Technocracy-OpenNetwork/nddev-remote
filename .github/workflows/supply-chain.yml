@@ -27,7 +27,7 @@ jobs:
         rustup show active-toolchain
     - uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/hosted-sdk@9f400b71c978c8c3974863f4dd25331d3d1be79d # v0.6.176
       with:
-        tools: cargo-deny@0.21.0
+        tools: cargo-deny@0.22.0
     - name: Install cargo-audit 0.23.0, checked against their digests
       run: |
         set -euo pipefail
