@@ -204,6 +204,7 @@ prerequisites — is versioned in
 [docs/capability-matrix.md](docs/capability-matrix.md); tests keep the
 matrix, `rds info` services and bench report names in agreement.
 
-## License
+## Credit
 
-AGPL-3.0-only. See [LICENSE](LICENSE).
+Apache-2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). Please credit NDDev and link
+[this repository](https://github.com/NDDev-Technocracy-OpenNetwork/nddev-remote).

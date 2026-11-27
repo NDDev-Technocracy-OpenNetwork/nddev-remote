@@ -33,13 +33,13 @@ class ReleaseContract(unittest.TestCase):
         self.context = contextlib.chdir(self.repo)
         self.context.__enter__()
         self.addCleanup(self.context.__exit__, None, None, None)
-        roots = ('README.md', 'LICENSE', 'VERSION', 'CHANGELOG.md', 'AGENTS.md',
+        roots = ('README.md', 'LICENSE', 'NOTICE', 'VERSION', 'CHANGELOG.md', 'AGENTS.md',
                  'deny.toml', 'rust-toolchain.toml', 'Cargo.toml', 'Cargo.lock',
                  'crates', 'tests', 'examples', 'deploy', 'docs', 'scripts', '.github',
                  'ops', 'packaging', 'vendor')
         for name in roots:
             path = Path(name)
-            if path.suffix or name in ("LICENSE", "VERSION"):
+            if path.suffix or name in ("LICENSE", "NOTICE", "VERSION"):
                 path.write_text("fixture\n")
             else:
                 path.mkdir()

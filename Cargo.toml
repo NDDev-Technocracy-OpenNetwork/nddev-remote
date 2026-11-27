@@ -21,7 +21,7 @@ members = [
 [workspace.package]
 edition = "2024"
 version = "0.1.4"
-license = "AGPL-3.0-only"
+license = "Apache-2.0"
 repository = "https://github.com/NDDev-Technocracy-OpenNetwork/nddev-remote"
 
 # Dependency direction (enforced by convention, not by cargo):
