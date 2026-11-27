@@ -1,5 +1,6 @@
 {
   "LICENSE": "LICENSE",
+  "NOTICE": "NOTICE",
   "font-licenses/Hack-Regular.txt": "crates/rds-desktop/assets/font-licenses/Hack-Regular.txt",
   "font-licenses/OFL.txt": "crates/rds-desktop/assets/font-licenses/OFL.txt",
   "font-licenses/UFL.txt": "crates/rds-desktop/assets/font-licenses/UFL.txt",
